@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhoomi's Secret Garden of Feelings</title>
+    <style>
+        /* === CSS RESET === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* === VARIABLES === */
+        :root {
+            --pink: #FFD1DC;
+            --light-pink: #FFE6EE;
+            --mint: #B5EAD7;
+            --lavender: #E6E6FA;
+            --gold: #FFD700;
+            --dark-pink: #FF9BB3;
+            --error-red: #ff3e3e;
+        }
+        
+        /* === BASE STYLES === */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light-pink);
+            color: #555;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-image: url('https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        
+        /* === TYPOGRAPHY === */
+        h1, h2 {
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
+        }
+        
+        h1 {
+            color: var(--dark-pink);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: #888;
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin: 0 0 30px;
+        }
+        
+        /* === MAIN CONTAINER === */
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://img.freepik.com/free-vector/floral-background-design_1217-132.jpg');
+            background-size: 300px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        /* === FORM ELEMENTS === */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #666;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--lavender);
+            border-radius: 15px;
+            min-height: 150px;
+            resize: vertical;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--dark-pink);
+            box-shadow: 0 0 0 3px rgba(255, 155, 179, 0.2);
+        }
+        
+        textarea::placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
+        
+        /* === MOOD SLIDER === */
+        .mood-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .mood-emoji {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            min-height: 60px;
+        }
+        
+        .mood-slider {
+            width: 100%;
+            height: 15px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: linear-gradient(to right, #ff3e3e, #ff8a00, #ffd000, #a1ff00, #00ff7b, #00b4ff, #8a2be2);
+            outline: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mood-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            border: 3px solid var(--gold);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .mood-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        /* === FLOWER SELECTOR === */
+        .flower-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .flower-option {
+            font-size: 1.8rem;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        .flower-option:hover, 
+        .flower-option.selected {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        
+        /* === BUTTONS === */
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, var(--dark-pink), #FF6B9E);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 155, 179, 0.4);
+            font-family: inherit;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 155, 179, 0.6);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .close-btn {
+            margin-top: 30px;
+            padding: 10px 30px;
+            background-color: var(--dark-pink);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            background-color: #FF6B9E;
+            transform: translateY(-2px);
+        }
+        
+        /* === PETAL ANIMATIONS === */
+        .petal {
+            position: absolute;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.7;
+            animation: float linear forwards;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+        
+        /* === SUCCESS OVERLAY === */
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .success-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .blooming-flower {
+            font-size: 8rem;
+            margin-bottom: 20px;
+            animation: bloom 1.5s ease-out forwards;
+        }
+        
+        @keyframes bloom {
+            0% {
+                transform: scale(0.1) rotate(0deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+        
+        .success-message {
+            font-size: 1.5rem;
+            text-align: center;
+            color: var(--dark-pink);
+            font-family: 'Dancing Script', cursive;
+            max-width: 80%;
+        }
+        
+        /* === PASSWORD SCREEN === */
+        .password-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .password-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            margin: 20px 0;
+            border: 2px solid var(--lavender);
+            border-radius: 15px;
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        .password-input:focus {
+            outline: none;
+            border-color: var(--dark-pink);
+        }
+        
+        .password-hint {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .error-message {
+            color: var(--error-red);
+            margin-top: 10px;
+            font-size: 0.9rem;
+            min-height: 20px;
+        }
+        
+        /* === ADMIN PANEL === */
+        .admin-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--dark-pink);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .admin-panel {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            max-width: 300px;
+            max-height: 70vh;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .admin-panel h3 {
+            margin-top: 0;
+            color: var(--dark-pink);
+            text-align: center;
+        }
+        
+        .message-list {
+            max-height: calc(70vh - 120px);
+            overflow-y: auto;
+            margin: 15px 0;
+            padding-right: 10px;
+        }
+        
+        .message-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .message-item:last-child {
+            border-bottom: none;
+        }
+        
+        .message-meta {
+            font-size: 0.8rem;
+            color: #888;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            align-items: center;
+        }
+        
+        .message-content {
+            font-size: 0.9rem;
+            word-break: break-word;
+        }
+        
+        .message-flower {
+            font-size: 1.2rem;
+            margin-right: 5px;
+        }
+        
+        /* === RESPONSIVE ADJUSTMENTS === */
+        @media (max-width: 600px) {
+            .container {
+                margin: 15px;
+                padding: 20px;
+            }
+            
+            .admin-panel {
+                max-width: 250px;
+                right: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Screen -->
+    <div class="password-screen" id="passwordScreen">
+        <div class="password-container">
+            <h1 style="color: var(--dark-pink);">🌸 Secret Garden 🌸</h1>
+            <p>Enter our special password to access the portal</p>
+            <input type="password" class="password-input" id="passwordInput" placeholder="Something Special...">
+            <p class="password-hint">Hint: It's our first Date(DDMM)</p>
+            <button class="submit-btn" id="passwordSubmit">Enter Garden</button>
+            <div class="error-message" id="passwordError"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="mainContent" style="display: none;">
+        <h1>Bhoomi's Secret Garden of Feelings</h1>
+        <h2>Express your feelings freely here...</h2>
+        
+        <form id="grievanceForm" action="https://formsubmit.co/019628a36af5e265845f3feb8aa0b424" method="POST">
+            <!-- FormSubmit Configuration -->
+            <input type="hidden" name="_subject" value="New Message from Secret Garden">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="" id="successPageUrl">
+            
+            <!-- Hidden fields for all data -->
+            <input type="hidden" id="emailMoodValue" name="Mood Value">
+            <input type="hidden" id="emailMoodText" name="Mood">
+            <input type="hidden" id="emailFlower" name="Flower">
+            <input type="hidden" id="emailMessage" name="Message">
+            <input type="hidden" id="emailTimestamp" name="Timestamp">
+            
+            <!-- Mood Section -->
+            <div class="mood-container">
+                <div class="mood-emoji" id="moodEmoji">😐</div>
+                <input type="range" min="0" max="100" value="50" class="mood-slider" id="moodSlider">
+                <div class="mood-labels">
+                    <span>Angry 😠</span>
+                    <span>Annoyed 😤</span>
+                    <span>Neutral 😐</span>
+                    <span>Calm 🙂</span>
+                    <span>Happy 😊</span>
+                    <span>Loving 😍</span>
+                </div>
+            </div>
+            
+            <!-- Flower Selection -->
+            <div class="flower-selector">
+                <div class="flower-option" data-emoji="🌹">🌹</div>
+                <div class="flower-option" data-emoji="🌻">🌻</div>
+                <div class="flower-option" data-emoji="🌸">🌸</div>
+                <div class="flower-option" data-emoji="🌺">🌺</div>
+                <div class="flower-option" data-emoji="🌼">🌼</div>
+            </div>
+            <input type="hidden" id="selectedFlower" value="">
+            
+            <!-- Message Box -->
+            <div class="form-group">
+                <label for="message">Your Message</label>
+                <textarea id="message" placeholder="Dear Mann, today I feel... (let it all out) 💌" required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Send with Kiss 💖</button>
+        </form>
+    </div>
+    
+    <!-- Success Animation -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="blooming-flower" id="bloomingFlower">🌸</div>
+        <div class="success-message">Your feelings have been gently carried to his heart. 🌸</div>
+        <button class="close-btn" id="closeBtn">Close</button>
+    </div>
+    
+    <!-- Admin Panel -->
+    <button class="admin-btn" id="adminBtn">🔑</button>
+    <div class="admin-panel" id="adminPanel">
+        <h3>Messages Received</h3>
+        <div class="message-list" id="messageList">
+            <p>No messages yet.</p>
+        </div>
+        <button class="close-btn" id="clearMessages">Clear All</button>
+    </div>
+
+    <script>
+        // ==== PASSWORD PROTECTION ====
+        const PASSWORD = "PetalPower"; // CHANGE THIS TO YOUR SECRET PASSWORD
+        const passwordScreen = document.getElementById('passwordScreen');
+        const passwordInput = document.getElementById('passwordInput');
+        const passwordSubmit = document.getElementById('passwordSubmit');
+        const passwordError = document.getElementById('passwordError');
+        const mainContent = document.getElementById('mainContent');
+        
+        // Check if already unlocked
+        if(localStorage.getItem('grievancePortalUnlocked') === 'true') {
+            passwordScreen.style.display = 'none';
+            mainContent.style.display = 'block';
+        }
+        
+        passwordSubmit.addEventListener('click', validatePassword);
+        passwordInput.addEventListener('keyup', (e) => e.key === 'Enter' && validatePassword());
+        
+        function validatePassword() {
+            if(passwordInput.value.trim() === PASSWORD) {
+                passwordScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+                localStorage.setItem('grievancePortalUnlocked', 'true');
+            } else {
+                passwordError.textContent = "Incorrect password. Try again sweetheart!";
+                passwordInput.focus();
+            }
+        }
+
+        // ==== MOOD SLIDER ====
+        const moodSlider = document.getElementById('moodSlider');
+        const moodEmoji = document.getElementById('moodEmoji');
+        const moodTextMap = {
+            0: { emoji: '😠', text: 'Angry' },
+            1: { emoji: '😤', text: 'Annoyed' },
+            2: { emoji: '😐', text: 'Neutral' },
+            3: { emoji: '🙂', text: 'Calm' },
+            4: { emoji: '😊', text: 'Happy' },
+            5: { emoji: '😍', text: 'Loving' }
+        };
+        
+        moodSlider.addEventListener('input', updateMoodDisplay);
+        
+        function updateMoodDisplay() {
+            const value = parseInt(moodSlider.value);
+            let moodLevel;
+            
+            if (value < 10) moodLevel = 0;
+            else if (value < 25) moodLevel = 1;
+            else if (value < 40) moodLevel = 2;
+            else if (value < 60) moodLevel = 3;
+            else if (value < 85) moodLevel = 4;
+            else moodLevel = 5;
+            
+            moodEmoji.textContent = moodTextMap[moodLevel].emoji;
+        }
+
+        // ==== FLOWER SELECTION ====
+        const flowerOptions = document.querySelectorAll('.flower-option');
+        const selectedFlower = document.getElementById('selectedFlower');
+        
+        flowerOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                flowerOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedFlower.value = this.getAttribute('data-emoji');
+            });
+        });
+
+        // ==== FORM SUBMISSION ====
+        const form = document.getElementById('grievanceForm');
+        const successOverlay = document.getElementById('successOverlay');
+        const bloomingFlower = document.getElementById('bloomingFlower');
+        const closeBtn = document.getElementById('closeBtn');
+        const successPageUrl = document.getElementById('successPageUrl');
+        
+        // Set success page URL for FormSubmit
+        successPageUrl.value = window.location.href.split('?')[0] + '?success=true';
+        
+        // Check for success parameter in URL
+        if(new URLSearchParams(window.location.search).has('success')) {
+            showSuccessAnimation(selectedFlower.value || '🌸');
+        }
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const moodValue = moodSlider.value;
+            const moodText = moodTextMap[Math.floor(moodValue / 20)].text;
+            const flower = selectedFlower.value || '🌸';
+            const message = document.getElementById('message').value;
+            const timestamp = new Date().toLocaleString();
+            
+            // Set values for email
+            document.getElementById('emailMoodValue').value = moodValue;
+            document.getElementById('emailMoodText').value = moodText;
+            document.getElementById('emailFlower').value = flower;
+            document.getElementById('emailMessage').value = message;
+            document.getElementById('emailTimestamp').value = timestamp;
+            
+            // Store message locally
+            storeMessageLocally({
+                mood: moodValue,
+                moodText: moodText,
+                flower: flower,
+                message: message,
+                timestamp: timestamp
+            });
+            
+            // Show success animation
+            showSuccessAnimation(flower);
+            
+            // Submit form to FormSubmit after a delay
+            setTimeout(() => {
+                form.submit();
+            }, 2000);
+        });
+        
+        function storeMessageLocally(message) {
+            const existingMessages = JSON.parse(localStorage.getItem('grievances')) || [];
+            existingMessages.unshift(message);
+            localStorage.setItem('grievances', JSON.stringify(existingMessages));
+            updateAdminPanel();
+        }
+        
+        function showSuccessAnimation(flower) {
+            bloomingFlower.textContent = flower;
+            successOverlay.classList.add('active');
+            createPetals();
+            
+            // Reset form
+            form.reset();
+            moodSlider.value = 50;
+            moodEmoji.textContent = '😐';
+            flowerOptions.forEach(opt => opt.classList.remove('selected'));
+            selectedFlower.value = '';
+        }
+        
+        closeBtn.addEventListener('click', () => {
+            successOverlay.classList.remove('active');
+        });
+
+        // ==== ADMIN PANEL ====
+        const adminBtn = document.getElementById('adminBtn');
+        const adminPanel = document.getElementById('adminPanel');
+        const messageList = document.getElementById('messageList');
+        const clearMessagesBtn = document.getElementById('clearMessages');
+        
+        adminBtn.addEventListener('click', toggleAdminPanel);
+        
+        function toggleAdminPanel() {
+            adminPanel.style.display = adminPanel.style.display === 'block' ? 'none' : 'block';
+            if(adminPanel.style.display === 'block') {
+                updateAdminPanel();
+            }
+        }
+        
+        function updateAdminPanel() {
+            const grievances = JSON.parse(localStorage.getItem('grievances')) || [];
+            messageList.innerHTML = '';
+            
+            if (grievances.length === 0) {
+                messageList.innerHTML = '<p>No messages yet.</p>';
+                return;
+            }
+            
+            grievances.forEach(grievance => {
+                const messageItem = document.createElement('div');
+                messageItem.className = 'message-item';
+                messageItem.innerHTML = `
+                    <div class="message-meta">
+                        <span><span class="message-flower">${grievance.flower}</span> ${grievance.moodText}</span>
+                        <span>${grievance.timestamp}</span>
+                    </div>
+                    <div class="message-content">${grievance.message}</div>
+                `;
+                messageList.appendChild(messageItem);
+            });
+        }
+        
+        clearMessagesBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear all messages?')) {
+                localStorage.removeItem('grievances');
+                updateAdminPanel();
+            }
+        });
+
+        // ==== PETAL ANIMATIONS ====
+        function createPetals() {
+            const petalEmojis = ['🌸', '🌺', '🌼', '🌹', '🌻'];
+            const colors = ['#FFD1DC', '#B5EAD7', '#E6E6FA', '#FF9BB3', '#FFD700'];
+            
+            for (let i = 0; i < 15; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.top = Math.random() * 100 + 'vh';
+                petal.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                petal.style.color = colors[Math.floor(Math.random() * colors.length)];
+                petal.style.animation = `float ${(Math.random() * 10 + 10)}s linear forwards`;
+                document.body.appendChild(petal);
+                
+                // Remove petal after animation
+                setTimeout(() => petal.remove(), (Math.random() * 10000 + 10000));
+            }
+        }
+        
+        // Initialize
+        updateMoodDisplay();
+        createPetals();
+        setInterval(createPetals, 3000);
+    </script>
+</body>
+</html>
